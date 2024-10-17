@@ -15,22 +15,31 @@ public class AdminLoginController {
     @Autowired
     private AdminLoginRepository adminLoginRepository;
 
-    @PostMapping("/login")
-    public String login(@RequestBody AdminLogin adminLogin) {
-        AdminLogin existingAdmin = adminLoginRepository.findByUsername(adminLogin.getUsername());
-        if (existingAdmin != null && existingAdmin.getPassword().equals(adminLogin.getPassword())) {
-            return "Login bem-sucedido"; // Lembre-se de implementar a lógica de autenticação
-        }
-        return "Credenciais inválidas";
-    }
 
-    @GetMapping("/admins")
+    @GetMapping
     public List<AdminLogin> listarAdmins() {
         return adminLoginRepository.findAll();
     }
 
+    @PostMapping
+    public ResponseEntity<AdminLogin> registrarAdmin(@RequestBody AdminLogin admin) {
+        AdminLogin novoAdmin = adminLoginRepository.save(admin);
+        return ResponseEntity.ok(novoAdmin);
+    }
 
-    @PutMapping("/admins/{id}")
+    @GetMapping("/{id}")
+    public ResponseEntity<AdminLogin> obterAdmin(@PathVariable Long id) {
+        return adminLoginRepository.findById(id)
+                .map(admin -> ResponseEntity.ok().body(admin))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+
+
+
+
+    @PutMapping("/{id}")
     public ResponseEntity<AdminLogin> atualizarAdmin(@PathVariable Long id,@RequestBody AdminLogin adminLoginDetails) {
         return adminLoginRepository.findById(id)
                 .map(adminLogin -> {
@@ -43,7 +52,7 @@ public class AdminLoginController {
    // Delete
 
 
-    @DeleteMapping("/admins/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?>  deletarAdmin(@PathVariable Long id){
         return adminLoginRepository.findById(id)
                 .map(admin -> {
