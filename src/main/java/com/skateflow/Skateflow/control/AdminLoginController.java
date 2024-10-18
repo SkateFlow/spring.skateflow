@@ -36,9 +36,6 @@ public class AdminLoginController {
 
 
 
-
-
-
     @PutMapping("/{id}")
     public ResponseEntity<AdminLogin> atualizarAdmin(@PathVariable Long id,@RequestBody AdminLogin adminLoginDetails) {
         return adminLoginRepository.findById(id)
@@ -62,5 +59,5 @@ public class AdminLoginController {
     }
 
 
-    // Outros métodos conforme necessário (por exemplo, registro, atualização)
+
 }
