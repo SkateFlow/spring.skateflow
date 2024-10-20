@@ -41,6 +41,7 @@ public class EventoController {
                     evento.setDataEvento(eventoDetails.getDataEvento());
                     evento.setLocalEvento(eventoDetails.getLocalEvento());
                     evento.setImagemEvento(eventoDetails.getImagemEvento());
+                    evento.setDescricao(eventoDetails.getDescricao());
                     Evento atualizado = eventoRepository.save(evento);
                     return ResponseEntity.ok().body(atualizado);
                 }).orElse(ResponseEntity.notFound().build());

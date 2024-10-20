@@ -23,6 +23,10 @@ public class Evento {
     @Column(name = "local_evento", nullable = false)
     private String localEvento;
 
+    @Column(name = "descricao", nullable = false)
+    private String descricao;
+
+
     @Column(name = "imagem_evento")
     private String imagemEvento;
 
@@ -57,6 +61,10 @@ public class Evento {
     public void setLocalEvento(String localEvento) {
         this.localEvento = localEvento;
     }
+
+    public String getDescricao() {       return descricao;    }
+
+    public void setDescricao(String descricao) {        this.descricao = descricao;    }
 
     public String getImagemEvento() {
         return imagemEvento;
