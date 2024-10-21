@@ -1,22 +1,20 @@
 package com.skateflow.Skateflow.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "AdminLogin")
 public class AdminLogin {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Use um identificador único
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "senha")
+    @Column(name = "senha", nullable = false)
     private String password; // Considere usar hashing para a senha
 
     // Getters e Setters
