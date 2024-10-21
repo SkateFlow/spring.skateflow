@@ -27,7 +27,8 @@ public class ArtigoController {
     public Artigo criarArtigo(@RequestBody Artigo artigo) {
         return artigoRepository.save(artigo);
     }
-    
+
+    // Obter um artigo pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<Artigo> obterArtigo(@PathVariable Long id){
         return artigoRepository.findById(id)
@@ -36,13 +37,14 @@ public class ArtigoController {
     }
 
     // Exibir um artigo pelo ID
-    @GetMapping("exibir/{id}")
+    @GetMapping("/exibir/{id}")
     public Artigo exibirArtigo(@PathVariable Long id) {
         return artigoRepository.findById(id).orElseThrow(() -> new RuntimeException("Artigo não encontrado"));
     }
-    //Atualizar
+
+    // Atualizar artigo
     @PutMapping("/{id}")
-    public ResponseEntity<Artigo> atualizarArtigo(@PathVariable Long id,@RequestBody Artigo artigoDetails) {
+    public ResponseEntity<Artigo> atualizarArtigo(@PathVariable Long id, @RequestBody Artigo artigoDetails) {
         return artigoRepository.findById(id)
                 .map(artigo -> {
                     artigo.setTitulo(artigoDetails.getTitulo());
@@ -50,16 +52,15 @@ public class ArtigoController {
                     Artigo _atualizado = artigoRepository.save(artigo);
                     return ResponseEntity.ok().body(_atualizado);
                 }).orElse(ResponseEntity.notFound().build());
-
     }
-    //Delete
-@DeleteMapping("/{id}")
+
+    // Deletar artigo
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarArtigo(@PathVariable Long id){
-    return artigoRepository.findById(id)
+        return artigoRepository.findById(id)
                 .map(artigo -> {
                     artigoRepository.delete(artigo);
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
-
-       }
     }
+}
